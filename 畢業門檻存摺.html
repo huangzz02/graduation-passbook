@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>畢業門檻存摺 · 資訊工程學系</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F2E7;
+    --paper-card: #FAF8F2;
+    --paper-deep: #EDE4CF;
+    --line: #D8CEB3;
+    --line-subtle: #EBE3D0;
+    --ink: #162035;
+    --ink-soft: #47536E;
+    --ink-faint: #8E96A8;
+    --stamp-red: #B32D25;
+    --stamp-red-glow: rgba(179, 45, 37, 0.18);
+    --gold: #9B7630;
+    --gold-light: #F4ECCF;
+    --cover-top: #162035;
+    --cover-bottom: #0D1525;
+    --ok-bg: #E4EFE0;
+    --ok-text: #265932;
+    --warn-bg: #F8ECE3;
+    --warn-text: #964223;
+    --shadow-sm: 0 2px 8px rgba(22, 32, 53, 0.04);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
+  body {
+    background-color: var(--paper);
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,0.7) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--line-subtle) 28px);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 90px;
+  }
+
+  /* ---------- 頂部存摺封面 ---------- */
+  .cover {
+    background: linear-gradient(165deg, var(--cover-top) 0%, var(--cover-bottom) 100%);
+    color: #F4EEDC;
+    padding: 60px 24px 48px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 5px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(var(--gold) 0.65px, transparent 0.65px),
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 24px 24px, 48px 48px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .cover-inner { max-width: 780px; margin: 0 auto; position: relative; }
+  
+  .top-action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .cover-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #DEC687;
+    margin: 0;
+  }
+  .storage-indicator {
+    font-size: 11.5px;
+    color: #9BA6C2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-reset {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #D1D8E6;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-reset:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+  .cover-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(34px, 6.5vw, 54px);
+    margin: 0 0 8px;
+    letter-spacing: .03em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .cover-sub {
+    font-size: 14.5px;
+    color: #B2BDD4;
+    margin: 0 0 32px;
+    letter-spacing: .02em;
+  }
+
+  .cover-meter {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+    border-top: 1px dashed rgba(222, 198, 135, 0.35);
+    padding-top: 26px;
+  }
+  .meter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(44px, 9vw, 68px);
+    font-weight: 700;
+    color: #F8F2DC;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .meter-num span { font-size: .45em; color: #8F9BB4; font-weight: 400; margin-left: 2px; }
+  .meter-label { font-size: 12.5px; color: #B2BDD4; margin-top: 6px; }
+
+  .meter-bar {
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+    border: 1px solid rgba(222, 198, 135, 0.3);
+  }
+  .meter-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #9B7630, #E0C16A, #F5DE93);
+    width: 0%;
+    transition: width .5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(224, 193, 106, 0.4);
+  }
+  
+  .verdict {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    border-radius: 999px;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    border: 1px solid rgba(222, 198, 135, 0.35);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    transition: all .3s ease;
+  }
+  .verdict .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #E5645A;
+    box-shadow: 0 0 8px #E5645A;
+    transition: background .3s;
+  }
+  .verdict.pass {
+    border-color: #8FD88F;
+    background: rgba(46, 117, 56, 0.25);
+    color: #E2F5E2;
+  }
+  .verdict.pass .dot { background: #57D357; box-shadow: 0 0 10px #57D357; }
+
+  /* ---------- 主存摺內頁 (Ledger) ---------- */
+  .ledger {
+    max-width: 780px;
+    margin: -10px auto 0;
+    padding: 40px 24px 0;
+  }
+  .ledger-group {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 28px 12px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  .ledger-group::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 16px; bottom: 0;
+    border-left: 1px dashed rgba(155, 118, 48, 0.2);
+    pointer-events: none;
+  }
+
+  .group-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 21px;
+    margin: 0 0 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--paper-deep);
+    padding-bottom: 12px;
+  }
+  .group-title .group-req {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    background: var(--gold-light);
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .group-note { font-size: 13px; color: var(--ink-soft); margin: 10px 0 20px; }
+
+  /* ---------- 單條項目 ---------- */
+  .entry {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: start;
+    transition: background-color .2s;
+  }
+  .entry:last-child { border-bottom: none; }
+  .entry > div { min-width: 0; }
+
+  /* 實體印章 */
+  .stamp-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2px;
+  }
+  .stamp {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px dashed var(--ink-faint);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    transform: rotate(-7deg);
+    transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+    line-height: 1.2;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .stamp .stamp-sub { font-size: 9px; font-weight: 500; font-family: 'JetBrains Mono', monospace; opacity: 0.8; }
+
+  @keyframes stampDrop {
+    0% { transform: scale(2.2) rotate(15deg); opacity: 0; }
+    60% { transform: scale(0.92) rotate(-9deg); opacity: 1; }
+    80% { transform: scale(1.04) rotate(-7deg); }
+    100% { transform: scale(1) rotate(-7deg); }
+  }
+
+  .stamp.active {
+    animation: stampDrop .4s ease-out forwards;
+    border: 3px double var(--stamp-red);
+    color: var(--stamp-red);
+    background: radial-gradient(circle, rgba(179,45,37,0.06) 0%, transparent 80%);
+    box-shadow: 0 0 0 2px var(--stamp-red-glow), inset 0 0 0 1px rgba(179,45,37,0.25);
+    text-shadow: 0.5px 0 0 var(--stamp-red);
+  }
+
+  .entry-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 12px;
+    row-gap: 2px;
+    margin-bottom: 6px;
+  }
+  .entry-head h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    margin: 0;
+    font-weight: 700;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .entry-req {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    text-align: right;
+    justify-self: end;
+    align-self: baseline;
+  }
+  .entry-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+
+  .domain-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 16px;
+    font-size: 13px;
+    table-layout: fixed;
+  }
+  .domain-table th,
+  .domain-table td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .domain-table th {
+    background-color: var(--paper-deep);
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .domain-table td {
+    background-color: #fff;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .domain-table td span {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .domain-table-wrap {
+      overflow-x: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+    .domain-table {
+      min-width: 620px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .top-action-bar {
+      align-items: center;
+      gap: 10px;
+    }
+    .cover-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .storage-indicator {
+      align-self: flex-end;
+      gap: 6px;
+      white-space: nowrap;
+      font-size: 10.5px;
+    }
+    .storage-indicator span {
+      white-space: nowrap;
+    }
+    .btn-reset {
+      white-space: nowrap;
+      padding: 2px 7px;
+      font-size: 10px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .entry-head {
+      column-gap: 8px;
+    }
+    .entry-head h3 {
+      font-size: 16px;
+    }
+    .entry-req {
+      font-size: 11.5px;
+    }
+    .storage-indicator {
+      gap: 5px;
+      font-size: 10px;
+    }
+    .btn-reset {
+      padding: 2px 6px;
+      font-size: 9.5px;
+    }
+  }
+
+  .entry-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    align-items: center;
+  }
+  .english-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: .02em;
+  }
+  .field input[type=number] {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    width: 96px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field input[type=number]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(155, 118, 48, 0.15);
+  }
+  .field input[type=number]:disabled {
+    background: var(--paper-deep);
+    color: var(--ink-faint);
+    cursor: not-allowed;
+  }
+
+
+  .field select {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13.5px;
+    max-width: 100%;
+    padding: 8px 32px 8px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 7px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2347536E' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+    color: var(--ink);
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(155, 118, 48, 0.15);
+  }
+  .lang-course-field {
+    width: 100%;
+    min-width: 0;
+  }
+  .lang-course-field select { width: 100%; }
+
+  .checkline {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13.5px;
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 0;
+    color: var(--ink);
+  }
+  .checkline input[type=checkbox] {
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    transition: all .2s;
+  }
+  .checkline input[type=checkbox]:checked {
+    background-color: var(--stamp-red);
+    border-color: var(--stamp-red);
+  }
+  .checkline input[type=checkbox]::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #fff;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+  .checkline input[type=checkbox]:checked::before { transform: scale(1); }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+  }
+  .entry-status {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: .02em;
+    transition: all .3s ease;
+  }
+  .entry-status.ok { background: var(--ok-bg); color: var(--ok-text); }
+  .entry-status.no { background: var(--warn-bg); color: var(--warn-text); }
+
+  .hint-box {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    background: var(--gold-light);
+    border-left: 3.5px solid var(--gold);
+    padding: 9px 12px;
+    border-radius: 0 6px 6px 0;
+    line-height: 1.5;
+  }
+
+  /* ---------- 待清項目卡片 ---------- */
+  .gaps { margin: 0 0 36px; padding: 0; }
+  .gaps-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .gaps-card h3 {
+    font-family: 'Noto Serif TC', serif;
+    margin: 0 0 14px;
+    font-size: 18px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gaps-card h3::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--stamp-red);
+    border-radius: 2px;
+  }
+  .gaps-list { list-style: none; margin: 0; padding: 0; }
+  .gaps-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-subtle);
+    font-size: 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--ink-soft);
+  }
+  .gaps-list li:last-child { border-bottom: none; }
+  .gaps-list li:not(.gaps-empty)::before {
+    content: "✕";
+    font-size: 11px;
+    color: var(--stamp-red);
+    font-weight: 900;
+  }
+  .gaps-empty {
+    color: var(--ok-text);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 0;
+  }
+
+  /* ---------- 補充說明摺疊面板 ---------- */
+  .appendix { margin: 0; padding: 0; }
+  details.note {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-card);
+    margin-bottom: 12px;
+    transition: background-color .2s;
+  }
+  details.note[open] { background: #fff; }
+  details.note summary {
+    cursor: pointer;
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Noto Serif TC', serif;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  details.note summary::-webkit-details-marker { display: none; }
+  details.note summary::after {
+    content: "+";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: var(--gold);
+  }
+  details.note[open] summary::after {
+    content: "−";
+  }
+  .note-body {
+    padding: 0 18px 18px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line-subtle);
+    margin-top: 4px;
+    padding-top: 14px;
+  }
+  .note-body ol, .note-body ul { margin: 6px 0; padding-left: 22px; }
+  .note-body li { margin-bottom: 6px; }
+
+  /* 規則比較表樣式 */
+  .rule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 13px;
+  }
+  .rule-table th, .rule-table td {
+    border: 1px solid var(--line);
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .rule-table th {
+    background-color: var(--paper-deep);
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .rule-table td { background-color: #fff; }
+  .rule-sub-title {
+    font-weight: 700;
+    color: var(--ink);
+    margin: 14px 0 6px;
+    display: block;
+  }
+
+  footer {
+    margin: 12px 0 0;
+    padding: 20px 0 0;
+    font-size: 12px;
+    color: var(--ink-faint);
+    border-top: 1px dashed var(--line);
+    line-height: 1.7;
+  }
+  .footer-disclaimer {
+    margin: 40px 0 0;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  .footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-bottom: 8px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .footer-note {
+    margin: 8px 0 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="top-action-bar">
+      <p class="cover-eyebrow">GRADUATION PASSBOOK</p>
+      <div class="storage-indicator">
+        <span>● 已啟動進度暫存</span>
+        <button type="button" class="btn-reset" id="resetBtn" title="清空所有填寫數值">重設清空</button>
+      </div>
+    </div>
+    <h1 class="cover-title">畢業門檻存摺</h1>
+    <p class="cover-sub">國立臺北大學 資訊工程學系 · 學士班檢核試算</p>
+    
+    <div class="cover-meter">
+      <div>
+        <div class="meter-num" id="doneCount">0<span>/11</span></div>
+        <div class="meter-label">已認證蓋章項目</div>
+      </div>
+      <div>
+        <div class="meter-bar"><div class="meter-bar-fill" id="meterFill"></div></div>
+        <div class="meter-label" id="creditLabel">學分類進度：0 / 132 學分</div>
+      </div>
+    </div>
+    
+    <div>
+      <div class="verdict" id="verdict">
+        <span class="dot"></span>
+        <span id="verdictText">尚未結清 — 尚有項目待結清</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ledger">
+
+  <!-- 學分類 -->
+  <div class="ledger-group">
+    <div class="group-title">
+      <span>學分類項目</span>
+      <span class="group-req">共需 132 學分</span>
+    </div>
+    <p class="group-note">學分須達標，且各領域規定需獨立滿足。</p>
+
+    <!-- 01 系必修 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-reqMajor">
+          <span>未檢核</span>
+          <span class="stamp-sub">CS-REQ</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>01・資工必修</h3>
+          <span class="entry-req">需 64 學分</span>
+        </div>
+        <p class="entry-desc">若想修系外課程抵充學分，需先修過系必修但被當後才可替代。</p>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="majorRequired">已獲得學分</label>
+            <input type="number" id="majorRequired" min="0" max="150" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-reqMajor">尚差 64 學分</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 系選修 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-elective">
+          <span>未檢核</span>
+          <span class="stamp-sub">CS-ELE</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>02・資工選修</h3>
+          <span class="entry-req">需 24 學分</span>
+        </div>
+        <p class="entry-desc">至少涵蓋「多媒體 / 計算機系統 / 網路 / 資訊理論」四領域中的兩個領域，合計三堂課。</p>
+        <div class="domain-table-wrap">
+          <table class="domain-table">
+            <thead>
+              <tr>
+                <th scope="col">多媒體領域</th>
+                <th scope="col">計算機系統領域</th>
+                <th scope="col">網路領域</th>
+                <th scope="col">資訊理論領域</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span>影像處理導論</span><span>訊號與系統</span><span>計算機圖學導論</span></td>
+                <td><span>軟體工程</span><span>嵌入式系統導論</span><span>人工智慧導論</span></td>
+                <td><span>無線網路導論</span><span>網路程式設計</span></td>
+                <td><span>資訊安全導論</span><span>機器學習導論</span><span>資料探勘</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="electiveCredits">已修學分</label>
+            <input type="number" id="electiveCredits" min="0" max="100" value="0">
+          </div>
+        </div>
+        <label class="checkline" style="margin-top: 10px;">
+          <input type="checkbox" id="electiveDomains">
+          <span>已涵蓋至少兩領域、共三堂課</span>
+        </label>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-elective">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 大一國文 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-chinese">
+          <span>未檢核</span>
+          <span class="stamp-sub">CHINESE</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>03・大一國文</h3>
+          <span class="entry-req">需 4 學分</span>
+        </div>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="chineseCredits">已修學分</label>
+            <input type="number" id="chineseCredits" min="0" max="4" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-chinese">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 大一英文 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-english">
+          <span>未檢核</span>
+          <span class="stamp-sub">ENGLISH</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>04・大一英文</h3>
+          <span class="entry-req" id="englishReq">需 4 學分</span>
+        </div>
+        <div class="entry-controls english-controls">
+          <div class="field">
+            <label for="englishStatus">方案</label>
+            <select id="englishStatus">
+              <option value="take">正常修課</option>
+              <option value="exempt">免修</option>
+              <option value="transfer">抵免</option>
+            </select>
+          </div>
+          <div id="englishStatusNote" class="hint-box" style="display:none; margin-top:2px;"></div>
+          <div class="field">
+            <label for="englishCredits">已修學分</label>
+            <input type="number" id="englishCredits" min="0" max="4" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-english">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 通識 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-genEd">
+          <span>未檢核</span>
+          <span class="stamp-sub">GEN-ED</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>05・通識</h3>
+          <span class="entry-req">需 16 學分</span>
+        </div>
+        <p class="entry-desc">需至少涵蓋 5 個通識向度。</p>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="genEdCredits">已修學分</label>
+            <input type="number" id="genEdCredits" min="0" max="40" value="0">
+          </div>
+        </div>
+        <label class="checkline" style="margin-top: 10px;">
+          <input type="checkbox" id="genEdDomains">
+          <span>已涵蓋至少 5 個通識向度</span>
+        </label>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-genEd">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 自由學分 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-free">
+          <span>未檢核</span>
+          <span class="stamp-sub">FREE-CR</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>06・自由學分</h3>
+          <span class="entry-req" id="freeReq">需 20 學分</span>
+        </div>
+        <p class="entry-desc">可來自：外系學分、共同選修（≤6 學分）、超修的系選修。</p>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="freeCredits">已修學分</label>
+            <input type="number" id="freeCredits" min="0" max="100" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-free">尚未達成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 非學分類 -->
+  <div class="ledger-group">
+    <div class="group-title">
+      <span>非學分類</span>
+      <span class="group-req">畢業必要條件</span>
+    </div>
+    <p class="group-note">不計入 132 學分，但同樣是畢業必要條件。</p>
+
+    <!-- 07 外語能力指標檢核 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-lang">
+          <span>未檢核</span>
+          <span class="stamp-sub">LANG-REQ</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>07・外語能力指標檢核</h3>
+          <span class="entry-req">三擇一</span>
+        </div>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="langPath">選擇路徑</label>
+            <select id="langPath">
+              <option value="none">尚未選擇</option>
+              <option value="course">課程類</option>
+              <option value="english_test">英語檢定類</option>
+              <option value="foreign_test">外語檢定類</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="langCourseBox" style="display:none; margin-top:12px;">
+          <table class="rule-table lang-table">
+            <thead><tr><th>課程類</th><th>修課標準</th></tr></thead>
+            <tbody>
+              <tr><td>語言中心英語選修課程</td><td>進階英文 A-EGP、專業英文 ESP、學術英文 EAP、專業學術英文 ESAP，共 4 學分。</td></tr>
+              <tr><td>非英語外語課程</td><td>需修習同語言（三）（四），共 4 學分。</td></tr>
+            </tbody>
+          </table>
+          <label class="checkline" style="margin-top:8px;">
+            <input type="checkbox" id="langCourseDone">
+            <span>已修畢上述課程</span>
+          </label>
+        </div>
+
+        <div id="langEnglishBox" style="display:none; margin-top:12px;">
+          <table class="rule-table lang-table">
+            <thead><tr><th>檢定項目</th><th>通過標準</th></tr></thead>
+            <tbody>
+              <tr><td>全民英檢 GEPT</td><td>中高級初試。</td></tr>
+              <tr><td>多益測驗 TOEIC</td><td>聽讀總分 600 分（含）以上／口說 120 分（含）以上／寫作 120 分（含）以上，任一項即可。</td></tr>
+              <tr><td>紙筆托福 ITP</td><td>480 分（含）以上。</td></tr>
+              <tr><td>網路托福 iBT</td><td>50 分（含）以上。</td></tr>
+              <tr><td>國際英語測驗 IELTS</td><td>4.5 級（含）以上。</td></tr>
+              <tr><td>培力英檢 BESTEP</td><td>口說／寫作任一項 230 分（含）以上，或聽及讀兩項各 70 分（含）以上。</td></tr>
+              <tr><td>劍橋大學英語能力測驗</td><td>Cambridge Main Suite: PET（Preliminary English Test）（含）以上。</td></tr>
+              <tr><td>劍橋領思 Linguaskill</td><td>口說／寫作任一項 140 分（含）以上，或聽及讀兩項各 140 分（含）以上。</td></tr>
+            </tbody>
+          </table>
+          <label class="checkline" style="margin-top:8px;">
+            <input type="checkbox" id="langEnglishDone">
+            <span>已達成上述標準</span>
+          </label>
+        </div>
+
+        <div id="langForeignBox" style="display:none; margin-top:12px;">
+          <table class="rule-table lang-table">
+            <thead><tr><th>語言／檢定</th><th>通過標準</th></tr></thead>
+            <tbody>
+              <tr><td>德語｜歌德學院德語文檢定（GOETHE-ZERTIFIKAT）</td><td>B1（含）以上。</td></tr>
+              <tr><td>日語｜日本語能力試驗（JLPT）</td><td>N3（含）以上。</td></tr>
+              <tr><td>韓語｜韓國語文能力測驗（TOPIK）</td><td>3 級（含）以上。</td></tr>
+              <tr><td>法語｜法語鑑定文憑測驗（DELF）</td><td>B1（含）以上。</td></tr>
+              <tr><td>西語｜西班牙語檢定考試（DELE）</td><td>B1（含）以上。</td></tr>
+              <tr><td>越語｜國際越南語認證（iVPT）</td><td>B 級中級 240–319 分（含）以上。</td></tr>
+            </tbody>
+          </table>
+          <label class="checkline" style="margin-top:8px;">
+            <input type="checkbox" id="langForeignDone">
+            <span>已達成上述標準</span>
+          </label>
+        </div>
+
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-lang">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 校定程式設計能力 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp active" id="stamp-programming">
+          <span>合格</span>
+          <span class="stamp-sub">CS-AUTO</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>08・校定程式設計能力</h3>
+          <span class="entry-req">資工系默認通過</span>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status ok">已達成（系所自動認定）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 學分學程／微學程／輔系／雙主修／師培 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-program">
+          <span>未檢核</span>
+          <span class="stamp-sub">PROGRAM</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>09・學分學程／微學程／輔系／雙主修／師培</h3>
+          <span class="entry-req">六擇一</span>
+        </div>
+        <p class="entry-desc">學分學程／微學程證書中的外系學分皆可算入自由學分（須注意是否有重複課名而導致不採計）</p>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="programChoice">選擇項目</label>
+            <select id="programChoice">
+              <option value="none">尚未選擇</option>
+              <option value="credit_program">學分學程 ≥ 15</option>
+              <option value="micro_cross">跨領域微學程 ≥ 8</option>
+              <option value="micro_single">單一領域微學程 ≥ 8</option>
+              <option value="minor">輔系 ≥ 20</option>
+              <option value="double_major">雙主修  ≥ 40</option>
+              <option value="teacher_prep">師培課程</option>
+            </select>
+          </div>
+          <div class="field" id="programCreditsField">
+            <label for="programCredits">已計入學分</label>
+            <input type="number" id="programCredits" min="0" max="80" value="0">
+          </div>
+        </div>
+        <div id="programSingleWarn" class="hint-box" style="display:none;">
+          單一領域微學程限「非本系」學生修讀，資工系學生不得修讀資工系自己開的「程式設計學士微學程」，但可修其他系所的單一領域微學程。
+        </div>
+        <div id="programCertificateBox" style="display:none; margin-top:10px;">
+          <label class="checkline">
+            <input type="checkbox" id="programCertificateDone">
+            <span id="programCompletionLabel">已申請並獲得證書</span>
+          </label>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-program">尚未達成</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 體育 -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-pe">
+          <span>未檢核</span>
+          <span class="stamp-sub">PE-REQ</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>10・體育</h3>
+          <span class="entry-req">無學分，至少修四次</span>
+        </div>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="peTimes">已修次數</label>
+            <input type="number" id="peTimes" min="0" max="10" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-pe">尚差 4 次</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 CPE -->
+    <div class="entry">
+      <div class="stamp-slot">
+        <div class="stamp" id="stamp-cpe">
+          <span>未檢核</span>
+          <span class="stamp-sub">CPE-TEST</span>
+        </div>
+      </div>
+      <div>
+        <div class="entry-head">
+          <h3>11・CPE</h3>
+          <span class="entry-req" id="cpeReq">依年級而定</span>
+        </div>
+        <div class="entry-controls">
+          <div class="field">
+            <label for="cpeGrade">目前年級</label>
+            <select id="cpeGrade">
+              <option value="low">大一 ～ 大四</option>
+              <option value="g5">大五</option>
+              <option value="g6">大六</option>
+            </select>
+          </div>
+          <div class="field">
+            <label id="cpeInputLabel" for="cpeScore">單次考試通過題數</label>
+            <input type="number" id="cpeScore" min="0" max="7" value="0">
+          </div>
+        </div>
+        <div class="entry-footer">
+          <div class="entry-status no" id="status-cpe">尚未達成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 缺漏盤點卡片 -->
+  <div class="gaps">
+    <div class="gaps-card">
+      <h3>尚未完成事項</h3>
+      <ul class="gaps-list" id="gapsList"></ul>
+    </div>
+  </div>
+
+  <!-- 補充條款與法規 -->
+  <div class="appendix">
+    <details class="note">
+      <summary>補充：不計入畢業 132 學分的項目</summary>
+      <div class="note-body">
+        <ol>
+          <li>超修通識</li>
+          <li>超修體育</li>
+          <li>軍訓課</li>
+          <li>上下學年的課未通過</li>
+          <li>重複課名（詳見下方「課名撞名重複問題」）</li>
+          <li>共同選修超過 6 學分的部分</li>
+          <li>輔系及雙主修學分</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="note">
+      <summary>補充：課名撞名重複問題</summary>
+      <div class="note-body">
+        <p><strong>本系必修與外系必選修撞名：</strong></p>
+        <ul>
+          <li>僅修本系必修：採計為「資工必修」。</li>
+          <li>僅修外系同名課：若本系未曾修習，不可抵充；若本系必修被當，經核准得採計為「資工必修」。</li>
+          <li>兩者皆修：採計本系必修學分為「資工必修」，外系課程不予採計。</li>
+        </ul>
+        <p><strong>本系選修與外系課程撞名：</strong></p>
+        <ul>
+          <li>僅修本系選修：採計為「資工選修」。</li>
+          <li>僅修外系同名課：採計為「自由學分」。</li>
+          <li>兩者皆修：採計本系選修為「資工選修」，外系同名課程不重複採計。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="note">
+      <summary>補充：大學英文「免修」與「抵免」規定對照表</summary>
+      <div class="note-body">
+        <table class="rule-table">
+          <thead>
+            <tr>
+              <th style="width:16%;">類別</th>
+              <th style="width:24%;">核心說明</th>
+              <th style="width:20%;">學分採計</th>
+              <th style="width:20%;">自由學分門檻</th>
+              <th style="width:20%;">申請方式與期限</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>一般修課</strong></td>
+              <td>正常修讀必修課程</td>
+              <td>獲得 4 學分</td>
+              <td>維持 20 學分</td>
+              <td>依常態選課時程修畢</td>
+            </tr>
+            <tr>
+              <td><strong>免修</strong></td>
+              <td>不需修讀大學英文課程</td>
+              <td><strong>未獲得學分</strong></td>
+              <td><strong>需補修 4 學分<br>（門檻升至 24）</strong></td>
+              <td>限入學當年度指定期間內：至系所核章後向語言中心申請，或新生分班測驗達標免申請</td>
+            </tr>
+            <tr>
+              <td><strong>抵免</strong></td>
+              <td>不需修讀大學英文課程</td>
+              <td><strong>直接獲得 4 學分</strong></td>
+              <td>維持 20 學分</td>
+              <td>限入學當年度指定期間內：持證明直接向語言中心申請，或新生分班測驗達標免申請</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <span class="rule-sub-title">【免修標準（符合其一）】</span>
+        <ul>
+          <li>全民英語能力分級檢定測驗 (GEPT) 中高級初試</li>
+          <li>多益測驗 (TOEIC) 650 分（含）以上</li>
+          <li>紙筆托福測驗 (ITP) 490 分（含）以上</li>
+          <li>網路托福測驗 (IBT) 70 分（含）以上</li>
+          <li>國際英語測驗 (IELTS) 5.5 級（含）以上</li>
+        </ul>
+
+        <span class="rule-sub-title">【抵免標準（符合其一）】</span>
+        <ul>
+          <li>全民英語能力分級檢定測驗 (GEPT) 中高級初複試（含）以上</li>
+          <li>多益測驗 (TOEIC) 785 分（含）以上</li>
+          <li>紙筆托福測驗 (ITP) 550 分（含）以上</li>
+          <li>網路托福測驗 (IBT) 87 分（含）以上</li>
+          <li>國際英語測驗 (IELTS) 6 級（含）以上</li>
+          <li>大學「指定科目考試」英文 90 分（含）以上</li>
+          <li>以英語為母語之外籍生</li>
+          <li>在他校已修習課程名稱相同或內容相近之課程</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <div class="footer-disclaimer">
+    本檢核存摺係依據資工系修業規章設計之試算工具，結果僅供個人檢視參考。實際畢業資格審查請依學校系統與系辦最終公告為準。
+  </div>
+  <footer>
+    <div class="footer-meta">
+      <span>© huangzz02 · Last updated: 2026/08 · Built with AI 🥀.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const STORAGE_KEY = 'CS_GRAD_PASSBOOK_DATA_V3';
+
+function saveState() {
+  const data = {
+    majorRequired: $('majorRequired').value,
+    electiveCredits: $('electiveCredits').value,
+    electiveDomains: $('electiveDomains').checked,
+    chineseCredits: $('chineseCredits').value,
+    englishCredits: $('englishCredits').value,
+    englishStatus: $('englishStatus').value,
+    genEdCredits: $('genEdCredits').value,
+    genEdDomains: $('genEdDomains').checked,
+    freeCredits: $('freeCredits').value,
+    langPath: $('langPath').value,
+    langCourseDone: $('langCourseDone').checked,
+    langEnglishDone: $('langEnglishDone').checked,
+    langForeignDone: $('langForeignDone').checked,
+    programChoice: $('programChoice').value,
+    programCredits: $('programCredits').value,
+    programCertificateDone: $('programCertificateDone').checked,
+    peTimes: $('peTimes').value,
+    cpeGrade: $('cpeGrade').value,
+    cpeScore: $('cpeScore').value
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (Object.prototype.hasOwnProperty.call(data, 'teacherPrepDone') &&
+        !Object.prototype.hasOwnProperty.call(data, 'programCertificateDone')) {
+      data.programCertificateDone = data.teacherPrepDone;
+    }
+    if (!Object.prototype.hasOwnProperty.call(data, 'englishCredits') &&
+        (data.englishStatus === 'take' || data.englishStatus === 'transfer')) {
+      data.englishCredits = 4;
+    }
+    for (const key in data) {
+      const el = $(key);
+      if (!el) continue;
+      if (el.type === 'checkbox') el.checked = data[key];
+      else if (key === 'englishStatus') {
+        const legacyStatus = { '0': 'take', '1': 'take', '2': 'transfer', '3': 'exempt', none: 'take' };
+        el.value = legacyStatus[String(data[key])] || data[key];
+      } else el.value = data[key];
+    }
+  } catch (e) {}
+}
+
+function recalc() {
+  // ---- 學分類邏輯 ----
+  const majorRequired = Number($('majorRequired').value) || 0;
+  const electiveCredits = Number($('electiveCredits').value) || 0;
+  const electiveDomains = $('electiveDomains').checked;
+  const chineseCredits = Math.min(Math.max(Number($('chineseCredits').value) || 0, 0), 4);
+  const englishStatus = $('englishStatus').value;
+  const isEnglishDone = englishStatus === 'take';
+  const isEnglishExempt = englishStatus === 'exempt';
+  const isEnglishTransfer = englishStatus === 'transfer';
+  const englishStatusNote = $('englishStatusNote');
+  const englishCredits = isEnglishTransfer ? 4 : isEnglishExempt ? 0 : Math.min(Math.max(Number($('englishCredits').value) || 0, 0), 4);
+  
+  // 英文三途徑判斷
+  const okEnglish = (isEnglishDone && englishCredits >= 4) || isEnglishTransfer || isEnglishExempt;
+
+  const genEdCredits = Number($('genEdCredits').value) || 0;
+  const genEdDomains = $('genEdDomains').checked;
+  const freeCredits = Number($('freeCredits').value) || 0;
+
+  const okMajor = majorRequired >= 64;
+  const okElective = electiveCredits >= 24 && electiveDomains;
+  const okChinese = chineseCredits >= 4;
+  const okGenEd = genEdCredits >= 16 && genEdDomains;
+
+  $('englishCredits').disabled = isEnglishExempt || isEnglishTransfer;
+  if (isEnglishExempt || isEnglishTransfer) $('englishCredits').value = englishCredits;
+  $('englishReq').textContent = isEnglishExempt ? '免修' : isEnglishTransfer ? '已取得 4 學分' : '需 4 學分';
+  if (isEnglishExempt) {
+    englishStatusNote.style.display = 'block';
+    englishStatusNote.textContent = '未獲學分，自由學分門檻升為 24';
+  } else if (isEnglishTransfer) {
+    englishStatusNote.style.display = 'block';
+    englishStatusNote.textContent = '直接獲得 4 學分';
+  } else {
+    englishStatusNote.style.display = 'none';
+    englishStatusNote.textContent = '';
+  }
+
+  // 自由學分門檻：免修者需補4學分，提升為24
+  const freeReqCredits = isEnglishExempt ? 24 : 20;
+  const okFree = freeCredits >= freeReqCredits;
+
+  $('freeReq').textContent = `需 ${freeReqCredits} 學分${isEnglishExempt ? '（因英文免修而提高為24）' : ''}`;
+
+  // 各項目蓋章與狀態文字
+  setStamp('reqMajor', okMajor, okMajor ? '已達標' : `尚差 ${Math.max(0, 64 - majorRequired)} 學分`);
+  
+  let eleStatus = '已達標';
+  if (!okElective) {
+    if (electiveCredits < 24 && !electiveDomains) eleStatus = `差 ${24 - electiveCredits} 學分 且未滿向度`;
+    else if (electiveCredits < 24) eleStatus = `尚差 ${24 - electiveCredits} 學分`;
+    else eleStatus = '未滿兩領域三門課';
+  }
+  setStamp('elective', okElective, eleStatus);
+  setStamp('chinese', okChinese, okChinese ? '已修畢' : `尚差 ${4 - chineseCredits} 學分`);
+
+  let engStatusText = '尚未達成';
+  if (isEnglishDone) engStatusText = okEnglish ? '已修畢（獲得 4 學分）' : `尚差 ${4 - englishCredits} 學分`;
+  else if (isEnglishTransfer) engStatusText = '已抵免';
+  else if (isEnglishExempt) engStatusText = '已免修';
+  setStamp('english', okEnglish, engStatusText);
+  
+  let genStatus = '已達標';
+  if (!okGenEd) {
+    if (genEdCredits < 16 && !genEdDomains) genStatus = `差 ${16 - genEdCredits} 學分 且未滿5向度`;
+    else if (genEdCredits < 16) genStatus = `尚差 ${16 - genEdCredits} 學分`;
+    else genStatus = '未滿 5 向度';
+  }
+  setStamp('genEd', okGenEd, genStatus);
+  setStamp('free', okFree, okFree ? '已達標' : `尚差 ${Math.max(0, freeReqCredits - freeCredits)} 學分`);
+
+  // 學分累計：總分永遠以 132 為目標
+  const englishEarned = (isEnglishDone || isEnglishTransfer) ? englishCredits : 0;
+  const chineseEarned = chineseCredits;
+  const creditTotal = Math.min(majorRequired, 64) +
+                      Math.min(electiveCredits, 24) +
+                      chineseEarned +
+                      englishEarned +
+                      Math.min(genEdCredits, 16) +
+                      Math.min(freeCredits, freeReqCredits);
+  
+  $('creditLabel').textContent = `學分類進度：${creditTotal} / 132 學分`;
+
+  // ---- 非學分類邏輯 ----
+  const langPath = $('langPath').value;
+  $('langCourseBox').style.display = langPath === 'course' ? 'block' : 'none';
+  $('langEnglishBox').style.display = langPath === 'english_test' ? 'block' : 'none';
+  $('langForeignBox').style.display = langPath === 'foreign_test' ? 'block' : 'none';
+  let okLang = false;
+  if (langPath === 'course') okLang = $('langCourseDone').checked;
+  else if (langPath === 'english_test') okLang = $('langEnglishDone').checked;
+  else if (langPath === 'foreign_test') okLang = $('langForeignDone').checked;
+  setStamp('lang', okLang, okLang ? '已達標' : '尚未通過');
+
+  const programChoice = $('programChoice').value;
+  const isCertificateProgram = ['credit_program', 'micro_cross', 'micro_single', 'teacher_prep'].includes(programChoice);
+  const isCourseCompletionProgram = ['minor', 'double_major'].includes(programChoice);
+  const isCompletionProgram = isCertificateProgram || isCourseCompletionProgram;
+  const isNone = programChoice === 'none';
+  $('programCreditsField').style.display = (isCompletionProgram || isNone) ? 'none' : 'flex';
+  $('programCertificateBox').style.display = isCompletionProgram ? 'block' : 'none';
+  $('programCompletionLabel').textContent = isCourseCompletionProgram ? `已完成${programChoice === 'minor' ? '輔系' : '雙主修'}所有所需課程` : '已申請並獲得證書';
+  $('programSingleWarn').style.display = programChoice === 'micro_single' ? 'block' : 'none';
+
+  let okProgram = false;
+  const programCredits = Number($('programCredits').value) || 0;
+
+  if (isCompletionProgram) {
+    okProgram = $('programCertificateDone').checked;
+  } else if (!isNone) {
+    okProgram = false;
+  }
+  setStamp('program', okProgram, okProgram ? '已達標' : '尚未達標');
+
+  const peTimes = Number($('peTimes').value) || 0;
+  const okPe = peTimes >= 4;
+  setStamp('pe', okPe, okPe ? '已達標' : `尚差 ${Math.max(0, 4 - peTimes)} 次`);
+
+  const cpeGrade = $('cpeGrade').value;
+  $('cpeInputLabel').textContent = cpeGrade === 'low' ? '單次考試通過題數' : '累積通過題數';
+  $('cpeReq').textContent = cpeGrade === 'low' ? '單次考試需 ≥ 2 題' : (cpeGrade === 'g5' ? '累積需 ≥ 2 題' : '累積需 ≥ 1 題');
+  const cpeScore = Number($('cpeScore').value) || 0;
+  const cpeNeed = cpeGrade === 'g6' ? 1 : 2;
+  const okCpe = cpeScore >= cpeNeed;
+  setStamp('cpe', okCpe, okCpe ? '已合格' : `尚差 ${Math.max(0, cpeNeed - cpeScore)} 題`);
+
+  // ---- 總彙整與待結清清單 ----
+  const items = [
+    { ok: okMajor, label: '資工必修：尚差 ' + Math.max(0, 64 - majorRequired) + ' 學分' },
+    { ok: okElective, label: '資工選修：' + (electiveCredits < 24 ? `尚差 ${24 - electiveCredits} 學分 ` : '') + (!electiveDomains ? '（尚未涵蓋兩領域三堂課）' : '') },
+    { ok: okChinese, label: `大一國文：尚差 ${4 - chineseCredits} 學分` },
+    { ok: okEnglish, label: `大一英文：尚差 ${Math.max(0, 4 - englishCredits)} 學分` },
+    { ok: okGenEd, label: '通識：' + (genEdCredits < 16 ? `尚差 ${16 - genEdCredits} 學分 ` : '') + (!genEdDomains ? '（尚未滿足 5 向度）' : '') },
+    { ok: okFree, label: '自由學分：尚差 ' + Math.max(0, freeReqCredits - freeCredits) + ' 學分' },
+    { ok: okLang, label: '外語能力指標：尚未達成' },
+    { ok: true, label: '' },
+    { ok: okProgram, label: '學分學程／微學程／輔系／雙主修／師培：尚未達標' },
+    { ok: okPe, label: '體育：尚差 ' + Math.max(0, 4 - peTimes) + ' 次' },
+    { ok: okCpe, label: 'CPE：尚未達到題數標準' }
+  ];
+
+  const doneCount = items.filter(i => i.ok).length;
+  $('doneCount').innerHTML = `${doneCount}<span>/11</span>`;
+  $('meterFill').style.width = Math.round((creditTotal / 132) * 100) + '%';
+
+  const gapsList = $('gapsList');
+  gapsList.innerHTML = '';
+  const gaps = items.filter(i => !i.ok && i.label);
+  
+  if (gaps.length === 0) {
+    gapsList.innerHTML = '<li class="gaps-empty">🎉 所有項目皆已達成，恭喜達成畢業門檻！</li>';
+  } else {
+    gaps.forEach(g => {
+      const li = document.createElement('li');
+      li.textContent = g.label;
+      gapsList.appendChild(li);
+    });
+  }
+
+  const verdict = $('verdict');
+  const verdictText = $('verdictText');
+  if (doneCount === 11) {
+    verdict.classList.add('pass');
+    verdictText.textContent = '存摺已結清 — 已達成所有畢業門檻！';
+  } else {
+    verdict.classList.remove('pass');
+    verdictText.textContent = `尚未結清 — 還有 ${11 - doneCount} 項待蓋章`;
+  }
+
+  saveState();
+}
+
+function setStamp(key, ok, statusText) {
+  const stamp = $('stamp-' + key);
+  const status = $('status-' + key);
+  if (!stamp) return;
+  
+  if (ok) {
+    stamp.classList.add('active');
+    stamp.querySelector('span').textContent = '合格';
+  } else {
+    stamp.classList.remove('active');
+    stamp.querySelector('span').textContent = '未檢核';
+  }
+  
+  if (status) {
+    status.className = 'entry-status ' + (ok ? 'ok' : 'no');
+    status.textContent = statusText || (ok ? '已達成' : '尚未達成');
+  }
+}
+
+// 監聽重設
+$('resetBtn').addEventListener('click', () => {
+  if (confirm('確定要清空所有填寫進度與數值嗎？')) {
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll('input[type=number]').forEach(i => i.value = 0);
+    document.querySelectorAll('input[type=range]').forEach(i => i.value = i.min);
+    document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
+    document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    recalc();
+  }
+});
+
+$("englishStatus").addEventListener('change', () => {
+  if ($('englishStatus').value === 'take') $('englishCredits').value = 0;
+  recalc();
+});
+
+document.addEventListener('input', recalc);
+document.addEventListener('change', recalc);
+
+// 頁面初始化
+loadState();
+recalc();
+</script>
+
+</body>
+</html>
