@@ -195,13 +195,6 @@
     box-shadow: var(--shadow-sm);
     position: relative;
   }
-  .ledger-group::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 16px; bottom: 0;
-    border-left: 1px dashed rgba(155, 118, 48, 0.2);
-    pointer-events: none;
-  }
 
   .group-title {
     font-family: 'Noto Serif TC', serif;
@@ -355,6 +348,74 @@
   }
 
   @media (max-width: 420px) {
+    .ledger {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 18px;
+      margin-top: 0;
+    }
+    .ledger-group {
+      padding: 18px 14px 8px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+    }
+    .ledger-group::before {
+      left: 10px;
+    }
+    .group-title {
+      font-size: 19px;
+      padding-bottom: 10px;
+    }
+    .group-note {
+      margin: 8px 0 12px;
+    }
+    .entry {
+      grid-template-columns: 60px minmax(0, 1fr);
+      gap: 10px;
+      padding: 16px 0;
+    }
+    .stamp-slot {
+      padding-top: 0;
+    }
+    .stamp {
+      width: 48px;
+      height: 48px;
+      font-size: 9.7px;
+      border-width: 2px;
+    }
+    .stamp .stamp-sub {
+      font-size: 6.6px;
+    }
+    .gaps {
+      margin: 0 0 20px;
+    }
+    .gaps-card {
+      padding: 16px 14px;
+      border-radius: 12px;
+    }
+    .gaps-card h3 {
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+    .gaps-list li {
+      padding: 8px 0;
+      font-size: 13px;
+    }
+    .appendix {
+      margin: 0 0 8px;
+    }
+    details.note {
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+    details.note summary {
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+    .note-body {
+      padding: 0 14px 14px;
+      font-size: 12.5px;
+    }
     .top-action-bar {
       align-items: center;
       gap: 10px;
@@ -387,6 +448,41 @@
   }
 
   @media (max-width: 360px) {
+    .ledger {
+      padding-left: 8px;
+      padding-right: 8px;
+      padding-top: 14px;
+    }
+    .ledger-group {
+      padding: 16px 12px 8px;
+      margin-bottom: 16px;
+    }
+    .group-title {
+      font-size: 18px;
+      padding-bottom: 8px;
+    }
+    .entry {
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 8px;
+      padding: 14px 0;
+    }
+    .stamp {
+      width: 42px;
+      height: 42px;
+      font-size: 8.8px;
+    }
+    .stamp .stamp-sub {
+      font-size: 6px;
+    }
+    .gaps-card {
+      padding: 14px 12px;
+    }
+    details.note summary {
+      padding: 10px 12px;
+    }
+    .note-body {
+      padding: 0 12px 12px;
+    }
     .entry-head {
       column-gap: 8px;
     }
@@ -575,9 +671,10 @@
     border-bottom: 1px solid var(--line-subtle);
     font-size: 14px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 10px;
     color: var(--ink-soft);
+    line-height: 1.5;
   }
   .gaps-list li:last-child { border-bottom: none; }
   .gaps-list li:not(.gaps-empty)::before {
@@ -585,6 +682,10 @@
     font-size: 11px;
     color: var(--stamp-red);
     font-weight: 900;
+    line-height: 1;
+    flex-shrink: 0;
+    display: inline-block;
+    transform: translateY(-0.5px);
   }
   .gaps-empty {
     color: var(--ok-text);
@@ -1250,7 +1351,7 @@
   </div>
   <footer>
     <div class="footer-meta">
-      <span>© huangzz02 · Last updated: 2026/08 · Built with AI 🥀.</span>
+      <span>© huangzz02 · Last updated: 2026/09 · Built with AI 🥀.</span>
     </div>
   </footer>
 </div>
@@ -1355,7 +1456,7 @@ function recalc() {
   const freeReqCredits = isEnglishExempt ? 24 : 20;
   const okFree = freeCredits >= freeReqCredits;
 
-  $('freeReq').textContent = `需 ${freeReqCredits} 學分${isEnglishExempt ? '（因英文免修而提高為24）' : ''}`;
+  $('freeReq').textContent = `需 ${freeReqCredits} 學分`;
 
   // 各項目蓋章與狀態文字
   setStamp('reqMajor', okMajor, okMajor ? '已達標' : `尚差 ${Math.max(0, 64 - majorRequired)} 學分`);
