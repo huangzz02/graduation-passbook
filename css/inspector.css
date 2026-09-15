@@ -1,0 +1,251 @@
+/* ==========================================================================
+   Contextual Rule Inspector (Official Regulations & Links)
+   ========================================================================== */
+
+.inspector-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-clip: padding-box;
+}
+
+/* 檢視器項目標頭 */
+.inspector-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inspector-title {
+  font-family: var(--fh, 'Noto Serif TC', serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.inspector-summary {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 官方規章佐證連結列表 */
+.inspector-docs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inspector-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 9px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  background-clip: padding-box;
+}
+
+.inspector-link-card:hover {
+  background: var(--surface-3);
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 14px var(--shadow-hover);
+}
+
+.inspector-link-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.inspector-link-org {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .03em;
+}
+
+.inspector-link-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.inspector-link-arrow {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  background: var(--accent-blue-soft);
+  border: 1px solid var(--accent-blue);
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all .15s ease;
+  flex-shrink: 0;
+}
+
+.inspector-link-card:hover .inspector-link-arrow {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+/* 夢核 (Dream) 主題超連結配色 */
+body.dream .inspector-link-org, [data-theme="dream"] .inspector-link-org {
+  color: #ffe07d;
+}
+
+body.dream .inspector-link-arrow, [data-theme="dream"] .inspector-link-arrow {
+  color: #ff3b94;
+  background: rgba(255, 59, 148, 0.15);
+  border-color: #ff3b94;
+}
+
+body.dream .inspector-link-card:hover .inspector-link-arrow, [data-theme="dream"] .inspector-link-card:hover .inspector-link-arrow {
+  background: #ff3b94;
+  border-color: #ff3b94;
+  color: #ffffff;
+}
+
+/* 粗獷 (Brutal) 主題超連結卡片 */
+body.brutal .inspector-link-card, [data-theme="brutal"] .inspector-link-card {
+  border: 2.5px solid #111111;
+  box-shadow: 3px 3px 0 #111111;
+  background: #ffffff;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 1), box-shadow 0.12s cubic-bezier(0.2, 0, 1), background-color 0.15s;
+}
+
+body.brutal .inspector-link-card:hover, [data-theme="brutal"] .inspector-link-card:hover {
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 1.5px 1.5px 0 #111111;
+  background: #fff7ee;
+  border-color: #111111;
+}
+
+body.brutal .inspector-link-card:active, [data-theme="brutal"] .inspector-link-card:active {
+  transform: translate(3px, 3px) !important;
+  box-shadow: 0 0 0 #111111 !important;
+}
+
+body.brutal .inspector-link-org, [data-theme="brutal"] .inspector-link-org {
+  color: #ff5c00;
+  font-weight: 800;
+}
+
+body.brutal .inspector-link-title, [data-theme="brutal"] .inspector-link-title {
+  color: #111111;
+  font-weight: 800;
+}
+
+body.brutal .inspector-link-arrow, [data-theme="brutal"] .inspector-link-arrow {
+  background: #111111;
+  color: #ffffff;
+  border: 1.5px solid #111111;
+  font-weight: 700;
+}
+
+body.brutal .inspector-link-card:hover .inspector-link-arrow, [data-theme="brutal"] .inspector-link-card:hover .inspector-link-arrow {
+  background: #ff5c00;
+  border-color: #111111;
+  color: #ffffff;
+}
+
+/* 提醒事項卡片（中央卡片與檢視器共用樣式） */
+.entry-pitfalls,
+.inspector-pitfalls {
+  margin-top: 14px;
+  background: var(--warn-bg);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 9px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-clip: padding-box;
+}
+
+.entry-pitfalls-title,
+.inspector-pitfalls-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--warn-text);
+  margin: 0;
+  letter-spacing: .02em;
+}
+
+.entry-pitfalls ul,
+.inspector-pitfalls ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 13.5px;
+  color: var(--warn-text);
+  line-height: 1.6;
+}
+
+.entry-pitfalls li,
+.inspector-pitfalls li {
+  margin-bottom: 5px;
+  white-space: pre-line;
+}
+
+.entry-pitfalls li:last-child,
+.inspector-pitfalls li:last-child {
+  margin-bottom: 0;
+}
+
+.english-pitfalls {
+  gap: 10px;
+}
+
+.english-standard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.english-standard-group {
+  min-width: 0;
+  padding: 9px 10px;
+  background: var(--surface);
+  border: 1px solid var(--hairline-subtle);
+  border-radius: 6px;
+}
+
+.english-standard-group h5 {
+  margin: 0 0 5px;
+  color: var(--warn-text);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.english-standard-group ul {
+  padding-left: 16px;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.english-standard-group li {
+  margin-bottom: 3px;
+}
+
+@media (max-width: 640px) {
+  .english-standard-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Git pre-commit hook: 自動偵測並更新 index.html 中的 Last updated 年月
+node -e "
+const fs = require('fs');
+const { execSync } = require('child_process');
+
+try {
+  const file = 'index.html';
+  if (!fs.existsSync(file)) process.exit(0);
+  const content = fs.readFileSync(file, 'utf8');
+  const now = new Date();
+  const ym = now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0');
+  const target = 'Last updated: ' + ym;
+  
+  if (!content.includes(target) && /Last updated:\s*\d{4}\/\d{2}/.test(content)) {
+    const updated = content.replace(/Last updated:\s*\d{4}\/\d{2}/g, target);
+    fs.writeFileSync(file, updated, 'utf8');
+    execSync('git add index.html');
+    console.log('\x1b[32m[Git Hook] 已自動更新 index.html 至最新日期：' + target + '\x1b[0m');
+  }
+} catch (err) {
+  console.error('[Git Hook Warning] 更新 index.html 失敗:', err.message);
+}
+"

@@ -1,0 +1,470 @@
+/* ==========================================================================
+   Ledger & Entry Controls (MetalForge Studio Edition)
+   ========================================================================== */
+
+/* 檢核群組卡片 (MetalForge Surface Card) */
+.ledger-group {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 18px 16px 12px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  background-clip: padding-box;
+}
+
+.group-title {
+  font-family: var(--fh, 'Noto Serif TC', serif);
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0 0 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 12px;
+}
+
+.group-title .group-req {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+  background: var(--gold-light);
+  padding: 3px 9px;
+  border-radius: 5px;
+  letter-spacing: .02em;
+}
+
+.group-note {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 8px 0 18px;
+  line-height: 1.5;
+}
+
+/* 單條檢核條目 (0 水平內距，蓋章與右側控制項緊密且對稱貼合卡片邊界) */
+.entry {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  padding: 15px 0;
+  border-bottom: 1px dashed var(--hairline);
+  align-items: start;
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px 14px;
+  margin-bottom: 6px;
+  flex-wrap: nowrap;
+}
+
+/* 當標題下方無備註說明（.entry-desc）或表格時，提供 14px 垂直呼吸間距。
+   有 .entry-desc 時由 .entry-desc 的 margin-bottom: 12px 撐開，此選擇器不作用。
+   有 .domain-table-wrap 時，表格本身 margin-bottom: 14px 已負責間距。 */
+.entry-head + .entry-controls {
+  margin-top: 14px;
+}
+
+.entry-head h3 {
+  font-family: var(--fh, 'Noto Serif TC', serif);
+  font-size: 18.5px;
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.entry-req {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-top: 2px;
+}
+
+.entry-desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+/* 領域表格與檢定標準表格 (有餘裕時全寬展開，縮窄時保持字型完整並平滑左右滑動) */
+.domain-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-strong) transparent;
+  margin: 12px 0 14px; /* margin-bottom: 14px 為後方 .checkline 提供上間距 */
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface);
+  background-clip: padding-box;
+}
+
+.domain-table {
+  width: 100%;
+  min-width: 480px; /* 寬裕時 100% 撐滿不滑動；極窄擠壓時提供平滑橫向滾動保護 */
+  border-collapse: separate; /* 採用 separate 解決 collapse 破壞圓角與邊緣削切變細的問題 */
+  border-spacing: 0;
+  font-size: 13.5px;
+  border: none;
+}
+
+.domain-table th,
+.domain-table td {
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+  border: none;
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  background-clip: padding-box;
+}
+
+/* 消除外圍邊框重疊衝突：最右欄位與最底列不設邊框，由外層容器統一呈現精確 1px 圓角輪廓 */
+.domain-table th:last-child,
+.domain-table td:last-child {
+  border-right: none;
+}
+
+.domain-table tr:last-child th,
+.domain-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 內側角落單元格精確銜接外框圓角，徹底消除背景溢出削薄邊框瑕疵 */
+.domain-table thead tr:first-child th:first-child {
+  border-top-left-radius: 7px;
+}
+.domain-table thead tr:first-child th:last-child {
+  border-top-right-radius: 7px;
+}
+.domain-table tbody tr:last-child th:first-child,
+.domain-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 7px;
+}
+.domain-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 7px;
+}
+
+.domain-table thead th {
+  background-color: var(--surface-2);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.domain-table tbody th {
+  background-color: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.domain-table td {
+  background-color: var(--surface);
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.domain-table td span {
+  display: block;
+  white-space: nowrap;
+}
+
+/* 07 外語能力指標檢定表格專屬比例 */
+.domain-table.lang-table {
+  min-width: 420px;
+}
+
+.domain-table.lang-table thead th:first-child,
+.domain-table.lang-table tbody th {
+  white-space: nowrap;
+  width: 150px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+#langCourseBox .domain-table.lang-table thead th:first-child,
+#langCourseBox .domain-table.lang-table tbody th {
+  width: 80px;
+}
+
+.domain-table.lang-table td:last-child {
+  min-width: 250px;
+  line-height: 1.55;
+}
+
+/* 控制表單區 */
+.entry-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  align-items: center;
+}
+
+.english-controls {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: .01em;
+}
+
+.field input[type=number] {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15.5px;
+  font-weight: 700;
+  width: 95px;
+  height: 38px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 6px;
+  background: var(--surface-2);
+  background-clip: padding-box;
+  color: var(--ink);
+  outline: none;
+  cursor: text;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+
+.field input[type=number]:hover {
+  border-color: var(--gold);
+  background: var(--surface-3);
+  box-shadow: 0 0 0 2px var(--gold-glow);
+  cursor: text;
+}
+
+.field input[type=number]:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold-glow);
+}
+
+.field input[type=number]:disabled {
+  background: var(--surface-3);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+/* 中間區塊自訂下拉選單 (custom-select) 容器與觸發鈕：高度 38px、顏色完全比照已修學分 */
+.field .custom-select {
+  width: auto;
+  min-width: 140px;
+}
+
+.field .custom-select-trigger {
+  height: 38px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  background: var(--surface-2);
+  background-clip: padding-box;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 6px;
+  color: var(--ink);
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+
+.field .custom-select-trigger:hover,
+.field .custom-select.open .custom-select-trigger {
+  border-color: var(--gold);
+  background: var(--surface-3);
+  box-shadow: 0 0 0 2px var(--gold-glow);
+}
+
+/* 原生 select 降級支援 */
+.field select {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  height: 38px;
+  box-sizing: border-box;
+  padding: 0 32px 0 12px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 6px;
+  background: var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239BA8BA' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+  background-clip: padding-box;
+  color: var(--ink);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+
+.field select:hover {
+  border-color: var(--gold);
+  background-color: var(--surface-3);
+  box-shadow: 0 0 0 2px var(--gold-glow);
+}
+
+.field select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold-glow);
+}
+
+.field select optgroup {
+  background: var(--surface-2);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.field select option {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* 勾選列 (label + checkbox + 文字)
+   - display: flex + width: fit-content（勿改為 inline-flex）：
+     inline-flex 會產生行盒基線膨脹，導致第 07 條勾選框上方多出 ~26px 空白。
+   - margin-top: 14px：全站統一節奏間距，與 entry-head→controls 間距相同。 */
+.checkline {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  margin-top: 14px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* 緊隨表格後的勾選框：表格 margin-bottom: 14px 已提供間距，歸零避免雙重累加 */
+.domain-table-wrap + .checkline {
+  margin-top: 0;
+}
+
+/* 勾選框本體
+   - 18px 偶數整數像素：在 Windows 125–150% DPI 下不產生次像素不對稱邊框。
+   - 1.5px 邊框 + box-sizing: border-box：確保視覺邊框均等、不擠壓內部空間。 */
+.checkline input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--hairline-strong);
+  border-radius: 4px;
+  background: var(--surface-2);
+  cursor: pointer;
+  display: inline-grid;
+  place-content: center;
+  transition: all .15s ease;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.checkline input[type=checkbox]:checked {
+  background-color: var(--stamp-red);
+  border-color: var(--stamp-red);
+}
+
+.checkline input[type=checkbox]::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  transform: scale(0);
+  transition: 100ms transform ease-in-out;
+  box-shadow: inset 1em 1em #fff;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.checkline input[type=checkbox]:checked::before {
+  transform: scale(1);
+}
+
+/* 條目底部狀態列，margin-top: 14px 維持與勾選框一致的節奏間距 */
+.entry-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.entry-status {
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: .02em;
+  line-height: 1.4;
+  transition: all .2s ease;
+  border: 1px solid transparent;
+}
+
+.entry-status.ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+  border-color: rgba(16, 185, 129, 0.28);
+}
+
+.entry-status.no {
+  background: var(--warn-bg);
+  color: var(--warn-text);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.hint-box {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: var(--gold-light);
+  border-left: 3px solid var(--gold);
+  padding: 8px 10px;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   各主題 field select 客製化箭頭顏色
+   ========================================================================== */
+body.cyber .field select, [data-theme="cyber"] .field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300f0ff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+}
+body.glass .field select, [data-theme="glass"] .field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ad8ff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+}
+body.terminal .field select, [data-theme="terminal"] .field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234dff88' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+}
+body.dream .field select, [data-theme="dream"] .field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+}
+body.brutal .field select, [data-theme="brutal"] .field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23111111' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+  border: 2px solid #111;
+}

@@ -1,0 +1,499 @@
+/* ==========================================================================
+   Passbook HUD & Stamp Visuals (MetalForge Unified Edition)
+   ========================================================================== */
+
+/* (三欄獨立捲軸樣式已統一移至 layout.css 全域定義) */
+
+/* 存摺封面看板 (與整體卡片一致的表面材質) */
+.passbook-hud-card {
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 16px 18px 16px;
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  background-clip: padding-box;
+}
+
+/* 存摺頂部標籤與標題 */
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hud-title {
+  font-family: var(--fh, 'Noto Serif TC', serif);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink);
+  letter-spacing: .02em;
+}
+
+.hud-save-indicator {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hud-save-indicator .save-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok-text);
+  box-shadow: 0 0 6px var(--ok-text);
+}
+
+/* 核心雙數據面板 (Stat Grid) */
+.hud-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.hud-stat-cell {
+  background: var(--surface-2);
+  border: 1.5px solid var(--hairline);
+  border-radius: 7px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-clip: padding-box;
+}
+
+.hud-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.hud-num span {
+  font-size: .5em;
+  color: var(--ink-faint);
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.hud-label {
+  font-size: 11.5px;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* 雙進度條區塊 */
+.hud-meters {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  border-top: 1px dashed var(--hairline);
+  padding-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.hud-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-bar {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  padding: 2px;
+  border: 2px solid var(--hairline-strong);
+  background-clip: padding-box;
+}
+
+.hud-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  width: 0%;
+  transition: width .4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 門檻進度條色彩 (印章朱紅) */
+.stamp-meter-fill {
+  background: var(--stamp-red);
+  box-shadow: 0 0 8px var(--stamp-red-glow);
+}
+
+/* 學分進度條色彩 (琥珀燙金) */
+.credit-meter-fill {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* 特殊主題進度條效果 */
+body.cyber .stamp-meter-fill, [data-theme="cyber"] .stamp-meter-fill {
+  background: linear-gradient(90deg, #00f0ff, #ff2d78);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+}
+body.cyber .credit-meter-fill, [data-theme="cyber"] .credit-meter-fill {
+  background: linear-gradient(90deg, #ffd000, #00f0ff);
+  box-shadow: 0 0 12px rgba(255, 208, 0, 0.6);
+}
+
+body.brutal .stamp-meter-fill, [data-theme="brutal"] .stamp-meter-fill {
+  background: #ff5c00;
+  box-shadow: none;
+}
+body.brutal .credit-meter-fill, [data-theme="brutal"] .credit-meter-fill {
+  background: #ffc700;
+  box-shadow: none;
+}
+
+/* 夢核主題：輕柔夢幻浮空感進度條與上方兩數據卡精準對應（降低飽和度，重現輕飄飄仙氣質感） */
+body.dream .hud-bar, [data-theme="dream"] .hud-bar {
+  background: rgba(55, 20, 70, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: inset 0 1px 3px rgba(30, 10, 40, 0.15);
+  background-clip: padding-box;
+}
+
+body.dream .stamp-meter-fill, [data-theme="dream"] .stamp-meter-fill {
+  background: linear-gradient(90deg, #f472b6, #fbcfe8);
+  box-shadow: 0 0 10px rgba(244, 114, 182, 0.35);
+}
+body.dream .credit-meter-fill, [data-theme="dream"] .credit-meter-fill {
+  background: linear-gradient(90deg, #f5c76c, #fde68a);
+  box-shadow: 0 0 10px rgba(245, 199, 108, 0.35);
+}
+
+/* 夢核主題：上方兩小卡片色系與清晰度優化（以微透紫晶磨砂底層消除白霧反光，字體立體清晰且維持仙氣） */
+/* 第一格：已蓋章門檻（對應柔和櫻粉霞光） */
+body.dream .hud-stat-grid .hud-stat-cell:first-child,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:first-child {
+  border-color: rgba(255, 180, 215, 0.38);
+  background: linear-gradient(135deg, rgba(45, 18, 52, 0.42), rgba(80, 24, 65, 0.28));
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 2px 8px rgba(35, 12, 45, 0.15);
+}
+body.dream .hud-stat-grid .hud-stat-cell:first-child .hud-label,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:first-child .hud-label {
+  color: #ffb8d4;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(20, 6, 25, 0.5);
+  letter-spacing: .03em;
+}
+body.dream .hud-stat-grid .hud-stat-cell:first-child .hud-num,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:first-child .hud-num {
+  text-shadow: 0 2px 6px rgba(20, 6, 25, 0.35);
+}
+
+/* 第二格：累計總學分（對應輕柔星芒奶油金） */
+body.dream .hud-stat-grid .hud-stat-cell:last-child,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:last-child {
+  border-color: rgba(255, 230, 160, 0.38);
+  background: linear-gradient(135deg, rgba(45, 18, 52, 0.42), rgba(75, 40, 25, 0.28));
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 2px 8px rgba(35, 12, 45, 0.15);
+}
+body.dream .hud-stat-grid .hud-stat-cell:last-child .hud-label,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:last-child .hud-label {
+  color: #fde096;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(20, 6, 25, 0.5);
+  letter-spacing: .03em;
+}
+body.dream .hud-stat-grid .hud-stat-cell:last-child .hud-num,
+[data-theme="dream"] .hud-stat-grid .hud-stat-cell:last-child .hud-num {
+  text-shadow: 0 2px 6px rgba(20, 6, 25, 0.35);
+}
+
+/* 夢核主題：進度條標題色彩（柔霧粉與星芒淡金） */
+body.dream .hud-progress-wrap:first-child .hud-bar-label,
+[data-theme="dream"] .hud-progress-wrap:first-child .hud-bar-label {
+  color: #fbcfe8;
+}
+body.dream .hud-progress-wrap:first-child .hud-bar-label span:last-child,
+[data-theme="dream"] .hud-progress-wrap:first-child .hud-bar-label span:last-child {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+body.dream .hud-progress-wrap:last-child .hud-bar-label,
+[data-theme="dream"] .hud-progress-wrap:last-child .hud-bar-label {
+  color: #fde68a;
+}
+body.dream .hud-progress-wrap:last-child .hud-bar-label span:last-child,
+[data-theme="dream"] .hud-progress-wrap:last-child .hud-bar-label span:last-child {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* 雙數據格：第一格（蓋章數）用印章紅色系，第二格（學分）用金色系 */
+.hud-stat-grid .hud-stat-cell:first-child {
+  border-color: var(--stamp-red-glow);
+  background: linear-gradient(135deg, var(--surface-2), var(--stamp-red-soft));
+}
+.hud-stat-grid .hud-stat-cell:first-child .hud-label {
+  color: var(--stamp-red);
+}
+
+.hud-stat-grid .hud-stat-cell:last-child {
+  border-color: var(--gold-glow);
+  background: linear-gradient(135deg, var(--surface-2), var(--gold-light));
+}
+.hud-stat-grid .hud-stat-cell:last-child .hud-label {
+  color: var(--gold);
+}
+
+.hud-bar-label {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 左側待辦缺漏卡片 (自適應底下高度) */
+.gaps-hud-card {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-clip: padding-box;
+}
+
+/* 桌機版：存摺卡片右側預留 6px 捲軸溝槽，與下方待辦卡片邊界對齊 */
+@media (min-width: 1024px) {
+  .passbook-hud-card {
+    margin-right: 6px;
+  }
+}
+
+.gaps-header {
+  font-family: 'Noto Serif TC', serif;
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.gaps-header::before {
+  content: "";
+  width: 3px;
+  height: 14px;
+  background: var(--stamp-red);
+  border-radius: 2px;
+}
+
+.gaps-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gaps-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--hairline-subtle);
+  font-size: 13.5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.gaps-list li:last-child {
+  border-bottom: none;
+}
+
+.gaps-list li:not(.gaps-empty)::before {
+  content: "";
+  width: 7px;
+  height: 2px;
+  background: var(--stamp-red);
+  border-radius: 1px;
+  flex-shrink: 0;
+  margin-top: calc(0.725em - 1px);
+}
+
+.gaps-empty {
+  color: var(--ok-text);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 0;
+}
+
+/* 實體印章樣式與動畫 */
+.stamp-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.stamp {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--ink-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--fh, 'Noto Serif TC', serif);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 1px;
+  text-indent: 1px; /* 平衡 letter-spacing 產生的右側微小位移 */
+  color: var(--ink-faint);
+  transform: rotate(-7deg);
+  transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+  line-height: 1;
+  user-select: none;
+  background: var(--surface-2);
+}
+
+@keyframes stampDrop {
+  0% { transform: scale(2.2) rotate(15deg); opacity: 0; }
+  60% { transform: scale(0.92) rotate(-9deg); opacity: 1; }
+  80% { transform: scale(1.04) rotate(-7deg); }
+  100% { transform: scale(1) rotate(-7deg); }
+}
+
+.stamp.active {
+  animation: stampDrop .4s ease-out forwards;
+  border: 3px double var(--stamp-red);
+  color: var(--stamp-red);
+  background: var(--stamp-red-soft);
+  box-shadow: 0 0 0 2px var(--stamp-red-glow), inset 0 0 0 1px var(--stamp-red-glow);
+  text-shadow: 0.5px 0 0 var(--stamp-red);
+}
+
+/* ============ 七款專屬風格蓋章質地 ============ */
+/* 浮雕：凹凸浮雕印 */
+body.emboss .stamp, [data-theme="emboss"] .stamp {
+  border: none;
+  box-shadow: inset 3px 3px 6px #c2c9d6, inset -3px -3px 6px #ffffff;
+  color: #8b95a7;
+}
+body.emboss .stamp.active, [data-theme="emboss"] .stamp.active {
+  border: 2px solid rgba(108, 99, 255, 0.4);
+  background: #e3e8f0;
+  color: #6c63ff;
+  box-shadow: 4px 4px 10px #c2c9d6, -4px -4px 10px #ffffff;
+  text-shadow: none;
+}
+
+/* 賽博：全息脈衝印 */
+body.cyber .stamp, [data-theme="cyber"] .stamp {
+  font-family: 'Rajdhani', sans-serif;
+  border: 1.5px dashed rgba(0, 240, 255, 0.3);
+  color: #5f7d95;
+  transform: rotate(-5deg);
+}
+body.cyber .stamp.active, [data-theme="cyber"] .stamp.active {
+  border: 2px solid #00f0ff;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.12);
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.6), inset 0 0 8px rgba(255, 45, 120, 0.4);
+  text-shadow: 0 0 8px #00f0ff;
+}
+
+/* 磨砂：晶透水晶印 */
+body.glass .stamp, [data-theme="glass"] .stamp {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+}
+body.glass .stamp.active, [data-theme="glass"] .stamp.active {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 20px rgba(154, 216, 255, 0.55), inset 0 0 8px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 8px #9ad8ff;
+}
+
+/* 粗獷：厚橡膠戳印 */
+body.brutal .stamp, [data-theme="brutal"] .stamp {
+  font-family: 'Archivo Black', sans-serif;
+  border: 2px solid #111;
+  background: #f1ede4;
+  color: #111;
+  box-shadow: 2px 2px 0 #111;
+  transform: rotate(-4deg);
+}
+body.brutal .stamp.active, [data-theme="brutal"] .stamp.active {
+  border: 3px solid #111;
+  color: #ffffff;
+  background: #ff5c00;
+  box-shadow: 4px 4px 0 #111;
+  text-shadow: none;
+  transform: rotate(-6deg);
+}
+
+/* 侘寂：金石硃砂印 */
+body.wabi .stamp, [data-theme="wabi"] .stamp {
+  font-family: 'Noto Serif TC', serif;
+  border: 1.5px dashed #8d8578;
+  background: #efe7db;
+}
+body.wabi .stamp.active, [data-theme="wabi"] .stamp.active {
+  border: 2.5px solid #b5432f;
+  color: #b5432f;
+  background: rgba(181, 67, 47, 0.12);
+  box-shadow: 0 0 0 1px rgba(181, 67, 47, 0.25);
+  text-shadow: 0.5px 0 0 #b5432f;
+}
+
+/* 終端：矩陣終端戳記 */
+body.terminal .stamp, [data-theme="terminal"] .stamp {
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px dashed #1d5c33;
+  color: #207a43;
+  transform: none;
+  border-radius: 4px;
+}
+body.terminal .stamp.active, [data-theme="terminal"] .stamp.active {
+  border: 1.5px solid #4dff88;
+  color: #4dff88;
+  background: rgba(77, 255, 136, 0.14);
+  box-shadow: 0 0 12px rgba(77, 255, 136, 0.4);
+  text-shadow: 0 0 6px #4dff88;
+  transform: none;
+  border-radius: 4px;
+}
+
+/* 夢核：果凍星芒印 */
+body.dream .stamp, [data-theme="dream"] .stamp {
+  font-family: 'Baloo 2', cursive;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+body.dream .stamp.active, [data-theme="dream"] .stamp.active {
+  border: 2.5px solid #ffffff;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff5fb0, #ff9d6c);
+  box-shadow: 0 6px 20px rgba(255, 95, 176, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}

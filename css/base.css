@@ -1,0 +1,542 @@
+/* ==========================================================================
+   風格設定 — 7 組深度適配主題色彩與動態系統
+   侘寂 (預設) | 磨砂 | 浮雕 | 粗獷 | 夢核 | 終端 | 賽博
+   ========================================================================== */
+
+/* ============ 侘寂 (Wabi) — 預設主題 ============ */
+:root, [data-theme="wabi"], body.wabi {
+  --bg: #f5f1ea;
+  --surface: #fbf8f3;
+  --surface-2: #efe7db;
+  --surface-3: #e3d9cb;
+  
+  --hairline: #e5ddd0;
+  --hairline-strong: #968a78;
+  --hairline-subtle: rgba(141, 133, 120, 0.25);
+  
+  --ink: #26231f;
+  --ink-soft: #635c52;
+  --ink-faint: #8d8578;
+
+  --acc: #b5432f;
+  --acc2: #8f6b4d;
+  --accent: #b5432f;
+  --accent-soft: rgba(181, 67, 47, 0.12);
+  --accent-blue: #4a676b;
+  --accent-blue-soft: rgba(74, 103, 107, 0.12);
+  
+  --gold: #9e6f3b;
+  --gold-light: rgba(158, 111, 59, 0.12);
+  --gold-glow: rgba(158, 111, 59, 0.22);
+  
+  --stamp-red: #b5432f;
+  --stamp-red-soft: rgba(181, 67, 47, 0.12);
+  --stamp-red-glow: rgba(181, 67, 47, 0.28);
+
+  --ok-bg: #e4eee4;
+  --ok-text: #416847;
+  
+  --warn-bg: #f6ebe1;
+  --warn-text: #8e5831;
+
+  --dot: rgba(141, 133, 120, 0.25);
+
+  --header-bg: rgba(245, 241, 234, 0.92);
+  --header-border: #dcd3c4;
+  --header-shadow: 0 4px 18px rgba(38, 35, 31, 0.06);
+  --bg-grid: rgba(141, 133, 120, 0.05);
+  --bg-ambient: rgba(181, 67, 47, 0.04);
+
+  --shadow-sm: 0 2px 6px rgba(38, 35, 31, 0.04), 0 0 0 1px var(--hairline);
+  --shadow-md: 0 8px 24px rgba(38, 35, 31, 0.06), 0 0 0 1px var(--hairline);
+  --shadow-hover: rgba(181, 67, 47, 0.15);
+
+  --radius: 2px;
+  --fh: 'Noto Serif TC', serif;
+  --fb: 'Noto Serif TC', serif;
+  --ease: cubic-bezier(.19, 1, .22, 1);
+}
+
+/* ============ 浮雕 (Emboss) ============ */
+[data-theme="emboss"], body.emboss {
+  --bg: #e3e8f0;
+  --surface: #e3e8f0;
+  --surface-2: #d9dfea;
+  --surface-3: #cdd5e2;
+  
+  --hairline: rgba(255, 255, 255, 0.7);
+  --hairline-strong: #b4bfd2;
+  --hairline-subtle: rgba(194, 201, 214, 0.5);
+  
+  --ink: #333d4e;
+  --ink-soft: #637188;
+  --ink-faint: #8b95a7;
+
+  --acc: #6c63ff;
+  --acc2: #928bf9;
+  --accent: #6c63ff;
+  --accent-soft: rgba(108, 99, 255, 0.15);
+  --accent-blue: #5578d8;
+  --accent-blue-soft: rgba(85, 120, 216, 0.12);
+  
+  --gold: #8367d8;
+  --gold-light: rgba(131, 103, 216, 0.14);
+  --gold-glow: rgba(131, 103, 216, 0.28);
+  
+  --stamp-red: #d86884;
+  --stamp-red-soft: rgba(216, 104, 132, 0.14);
+  --stamp-red-glow: rgba(216, 104, 132, 0.28);
+
+  --ok-bg: #d2e8dd;
+  --ok-text: #2f7e5b;
+  
+  --warn-bg: #f2e3d3;
+  --warn-text: #a06330;
+
+  --dot: rgba(139, 149, 167, 0.3);
+
+  --header-bg: rgba(227, 232, 240, 0.88);
+  --header-border: rgba(255, 255, 255, 0.8);
+  --header-shadow: 0 8px 24px -6px rgba(184, 192, 207, 0.6);
+  --bg-grid: rgba(108, 99, 255, 0.035);
+  --bg-ambient: rgba(255, 255, 255, 0.6);
+
+  --shadow-sm: 5px 5px 12px #c2c9d6, -5px -5px 12px #ffffff;
+  --shadow-md: 9px 9px 20px #c2c9d6, -9px -9px 20px #ffffff;
+  --shadow-hover: rgba(108, 99, 255, 0.2);
+
+  --radius: 20px;
+  --fh: 'Noto Sans TC', sans-serif;
+  --fb: 'Noto Sans TC', sans-serif;
+  --ease: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ============ 賽博 (Cyber) ============ */
+[data-theme="cyber"], body.cyber {
+  --bg: #06070f;
+  --surface: #0a0e1c;
+  --surface-2: #0f162c;
+  --surface-3: #162242;
+  
+  --hairline: #12304a;
+  --hairline-strong: #00f0ff;
+  --hairline-subtle: rgba(0, 240, 255, 0.15);
+  
+  --ink: #e6f7ff;
+  --ink-soft: #85a8c2;
+  --ink-faint: #5f7d95;
+
+  --acc: #00f0ff;
+  --acc2: #ff2d78;
+  --accent: #00f0ff;
+  --accent-soft: rgba(0, 240, 255, 0.16);
+  --accent-blue: #00f0ff;
+  --accent-blue-soft: rgba(0, 240, 255, 0.14);
+  
+  --gold: #ffd000;
+  --gold-light: rgba(255, 208, 0, 0.16);
+  --gold-glow: rgba(255, 208, 0, 0.4);
+  
+  --stamp-red: #ff2d78;
+  --stamp-red-soft: rgba(255, 45, 120, 0.2);
+  --stamp-red-glow: rgba(255, 45, 120, 0.5);
+
+  --ok-bg: rgba(0, 240, 255, 0.15);
+  --ok-text: #00f0ff;
+  
+  --warn-bg: rgba(255, 45, 120, 0.15);
+  --warn-text: #ff5f9e;
+
+  --dot: rgba(0, 240, 255, 0.2);
+
+  --header-bg: rgba(6, 7, 15, 0.88);
+  --header-border: #12304a;
+  --header-shadow: 0 4px 26px rgba(0, 240, 255, 0.15);
+  --bg-grid: rgba(0, 240, 255, 0.05);
+  --bg-ambient: rgba(0, 240, 255, 0.08);
+
+  --shadow-sm: 0 0 10px rgba(0, 240, 255, 0.12), 0 0 0 1px var(--hairline);
+  --shadow-md: 0 0 24px rgba(0, 240, 255, 0.22), 0 0 0 1px var(--hairline);
+  --shadow-hover: rgba(0, 240, 255, 0.4);
+
+  --radius: 0px;
+  --fh: 'Rajdhani', 'Noto Sans TC', sans-serif;
+  --fb: 'Rajdhani', 'Noto Sans TC', sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ============ 磨砂 (Glass) ============ */
+[data-theme="glass"], body.glass {
+  --bg: #16233b;
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-2: rgba(255, 255, 255, 0.13);
+  --surface-3: rgba(255, 255, 255, 0.19);
+  
+  --hairline: rgba(255, 255, 255, 0.18);
+  --hairline-strong: rgba(255, 255, 255, 0.35);
+  --hairline-subtle: rgba(255, 255, 255, 0.1);
+  
+  --ink: #ffffff;
+  --ink-soft: rgba(255, 255, 255, 0.72);
+  --ink-faint: rgba(255, 255, 255, 0.48);
+
+  --acc: #9ad8ff;
+  --acc2: #ff85d0;
+  --accent: #9ad8ff;
+  --accent-soft: rgba(154, 216, 255, 0.18);
+  --accent-blue: #9ad8ff;
+  --accent-blue-soft: rgba(154, 216, 255, 0.15);
+  
+  --gold: #ffe082;
+  --gold-light: rgba(255, 224, 130, 0.18);
+  --gold-glow: rgba(255, 224, 130, 0.35);
+  
+  --stamp-red: #ff8ca3;
+  --stamp-red-soft: rgba(255, 140, 163, 0.2);
+  --stamp-red-glow: rgba(255, 140, 163, 0.4);
+
+  --ok-bg: rgba(120, 230, 180, 0.18);
+  --ok-text: #8ae4be;
+  
+  --warn-bg: rgba(255, 224, 130, 0.18);
+  --warn-text: #ffe082;
+
+  --dot: rgba(255, 255, 255, 0.15);
+
+  --header-bg: rgba(22, 35, 59, 0.65);
+  --header-border: rgba(255, 255, 255, 0.2);
+  --header-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --bg-grid: rgba(255, 255, 255, 0.03);
+  --bg-ambient: transparent;
+
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--hairline);
+  --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--hairline);
+  --shadow-hover: rgba(154, 216, 255, 0.3);
+
+  --radius: 18px;
+  --fh: 'Playfair Display', 'Noto Serif TC', serif;
+  --fb: 'Noto Sans TC', sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ============ 粗獷 (Brutal) ============ */
+[data-theme="brutal"], body.brutal {
+  --bg: #f1ede4;
+  --surface: #ffffff;
+  --surface-2: #fff7ee;
+  --surface-3: #ffe8d6;
+  
+  --hairline: #111111;
+  --hairline-strong: #111111;
+  --hairline-subtle: rgba(17, 17, 17, 0.2);
+  
+  --ink: #111111;
+  --ink-soft: #444037;
+  --ink-faint: #6e695d;
+
+  --acc: #ff5c00;
+  --acc2: #ffc700;
+  --accent: #ff5c00;
+  --accent-soft: rgba(255, 92, 0, 0.14);
+  --accent-blue: #0051ff;
+  --accent-blue-soft: rgba(0, 81, 255, 0.12);
+  
+  --gold: #ff5c00;
+  --gold-light: #fff0db;
+  --gold-glow: rgba(255, 92, 0, 0.3);
+  
+  --stamp-red: #ff5c00;
+  --stamp-red-soft: rgba(255, 92, 0, 0.14);
+  --stamp-red-glow: rgba(255, 92, 0, 0.35);
+
+  --ok-bg: #d7f5db;
+  --ok-text: #0d6e24;
+  
+  --warn-bg: #ffeedb;
+  --warn-text: #b53e00;
+
+  --dot: rgba(17, 17, 17, 0.18);
+
+  --header-bg: rgba(241, 237, 228, 0.95);
+  --header-border: #111111;
+  --header-shadow: 0 4px 0 #111111;
+  --bg-grid: rgba(17, 17, 17, 0.06);
+  --bg-ambient: transparent;
+
+  --shadow-sm: 3px 3px 0 #111111;
+  --shadow-md: 6px 6px 0 #111111;
+  --shadow-hover: #111111;
+
+  --radius: 10px;
+  --fh: 'Archivo Black', 'Noto Sans TC', sans-serif;
+  --fb: 'Noto Sans TC', sans-serif;
+  --ease: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ============ 終端 (Terminal) ============ */
+[data-theme="terminal"], body.terminal {
+  --bg: #050a06;
+  --surface: rgba(7, 18, 10, 0.92);
+  --surface-2: rgba(14, 38, 20, 0.7);
+  --surface-3: rgba(24, 66, 35, 0.8);
+  
+  --hairline: #1d5c33;
+  --hairline-strong: #4dff88;
+  --hairline-subtle: rgba(77, 255, 136, 0.15);
+  
+  --ink: #4dff88;
+  --ink-soft: #30b865;
+  --ink-faint: #207a43;
+
+  --acc: #4dff88;
+  --acc2: #99ffba;
+  --accent: #4dff88;
+  --accent-soft: rgba(77, 255, 136, 0.15);
+  --accent-blue: #4dff88;
+  --accent-blue-soft: rgba(77, 255, 136, 0.12);
+  
+  --gold: #4dff88;
+  --gold-light: rgba(77, 255, 136, 0.15);
+  --gold-glow: rgba(77, 255, 136, 0.35);
+  
+  --stamp-red: #4dff88;
+  --stamp-red-soft: rgba(77, 255, 136, 0.16);
+  --stamp-red-glow: rgba(77, 255, 136, 0.4);
+
+  --ok-bg: rgba(77, 255, 136, 0.16);
+  --ok-text: #4dff88;
+  
+  --warn-bg: rgba(77, 255, 136, 0.12);
+  --warn-text: #88ffb0;
+
+  --dot: rgba(77, 255, 136, 0.18);
+
+  --header-bg: rgba(5, 10, 6, 0.94);
+  --header-border: #1d5c33;
+  --header-shadow: 0 4px 20px rgba(77, 255, 136, 0.12);
+  --bg-grid: rgba(77, 255, 136, 0.04);
+  --bg-ambient: rgba(77, 255, 136, 0.06);
+
+  --shadow-sm: 0 0 8px rgba(77, 255, 136, 0.1), 0 0 0 1px var(--hairline);
+  --shadow-md: 0 0 18px rgba(77, 255, 136, 0.18), 0 0 0 1px var(--hairline);
+  --shadow-hover: rgba(77, 255, 136, 0.3);
+
+  --radius: 0px;
+  --fh: 'JetBrains Mono', 'Noto Sans TC', monospace;
+  --fb: 'JetBrains Mono', 'Noto Sans TC', monospace;
+  --ease: steps(3);
+}
+
+/* ============ 夢核 (Dream) ============ */
+[data-theme="dream"], body.dream {
+  --bg: #4a2656;
+  --surface: rgba(255, 255, 255, 0.26);
+  --surface-2: rgba(255, 255, 255, 0.38);
+  --surface-3: rgba(255, 255, 255, 0.52);
+  
+  --hairline: rgba(255, 255, 255, 0.55);
+  --hairline-strong: #ffffff;
+  --hairline-subtle: rgba(255, 255, 255, 0.3);
+  
+  --ink: #ffffff;
+  --ink-soft: rgba(255, 255, 255, 0.92);
+  --ink-faint: rgba(255, 255, 255, 0.72);
+
+  --acc: #ffffff;
+  --acc2: #ff5fb0;
+  --accent: #ffffff;
+  --accent-soft: rgba(255, 255, 255, 0.25);
+  --accent-blue: #8ec5fc;
+  --accent-blue-soft: rgba(142, 197, 252, 0.22);
+  
+  --gold: #ffe17d;
+  --gold-light: rgba(255, 225, 125, 0.25);
+  --gold-glow: rgba(255, 225, 125, 0.5);
+  
+  --stamp-red: #ff3b94;
+  --stamp-red-soft: rgba(255, 59, 148, 0.25);
+  --stamp-red-glow: rgba(255, 59, 148, 0.45);
+
+  --ok-bg: rgba(160, 255, 210, 0.32);
+  --ok-text: #ffffff;
+  
+  --warn-bg: rgba(255, 225, 125, 0.32);
+  --warn-text: #ffffff;
+
+  --dot: rgba(255, 255, 255, 0.35);
+
+  --header-bg: rgba(110, 48, 92, 0.55);
+  --header-border: rgba(255, 255, 255, 0.6);
+  --header-shadow: 0 8px 32px rgba(255, 95, 176, 0.35);
+  --bg-grid: rgba(255, 255, 255, 0.1);
+  --bg-ambient: transparent;
+
+  --shadow-sm: 0 4px 16px rgba(255, 95, 176, 0.25), 0 0 0 1px var(--hairline);
+  --shadow-md: 0 12px 36px rgba(255, 95, 176, 0.35), 0 0 0 1px var(--hairline);
+  --shadow-hover: rgba(255, 255, 255, 0.45);
+
+  --radius: 26px;
+  --fh: 'Baloo 2', 'Noto Sans TC', cursive;
+  --fb: 'Noto Sans TC', sans-serif;
+  --ease: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ============ 基礎排版與容器 ============ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--fb, 'Noto Sans TC', sans-serif);
+  font-size: 15.5px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* 確保全域主內容層在背景特效之上，頂部操作列與選單永遠在工作台之上 */
+header.top-header {
+  position: relative;
+  z-index: 1000;
+}
+
+main.workbench, footer.app-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ 全域主題特效層 (.bgfx) ============ */
+.bgfx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity .6s var(--ease, ease), background .6s var(--ease, ease);
+}
+
+/* 賽博 特效 — 只保留靜態網格，刪除掃描光柱 */
+body.cyber .bgfx, [data-theme="cyber"] .bgfx {
+  background:
+    linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px) 0 0 / 100% 44px,
+    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px) 0 0 / 44px 100%;
+}
+
+/* CRT 光柵疊加遮罩 (賽博 & 終端) */
+body.cyber::after, [data-theme="cyber"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0, 0, 0, 0.18) 3px);
+}
+body.terminal::after, [data-theme="terminal"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 0, 0, 0.26) 4px);
+}
+
+/* 磨砂 特效 (漂移雙色光球) */
+body.glass .bgfx, [data-theme="glass"] .bgfx {
+  background: linear-gradient(135deg, #141e30, #243b55);
+  overflow: hidden;
+}
+body.glass .bgfx::before, body.glass .bgfx::after,
+[data-theme="glass"] .bgfx::before, [data-theme="glass"] .bgfx::after {
+  content: '';
+  position: absolute;
+  width: 48vmax;
+  height: 48vmax;
+  border-radius: 50%;
+  filter: blur(75px);
+}
+body.glass .bgfx::before, [data-theme="glass"] .bgfx::before {
+  background: radial-gradient(circle, rgba(255, 110, 199, 0.65), transparent 65%);
+  top: -14%;
+  left: -12%;
+  animation: drift 17s ease-in-out infinite alternate;
+}
+body.glass .bgfx::after, [data-theme="glass"] .bgfx::after {
+  background: radial-gradient(circle, rgba(79, 172, 254, 0.65), transparent 65%);
+  bottom: -18%;
+  right: -10%;
+  animation: drift 21s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift {
+  to { transform: translate(9vmax, 7vmax) scale(1.15); }
+}
+
+/* 粗獷 特效 (點陣網格) */
+body.brutal .bgfx, [data-theme="brutal"] .bgfx {
+  background-image: radial-gradient(#00000015 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* 侘寂 特效 (呼吸硃砂水墨) */
+body.wabi .bgfx::before, [data-theme="wabi"] .bgfx::before {
+  content: '';
+  position: absolute;
+  right: 6%;
+  top: 10%;
+  width: min(340px, 60vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(181, 67, 47, 0.12), transparent 65%);
+  animation: breath 7s ease-in-out infinite;
+}
+@keyframes breath {
+  50% { transform: scale(1.12); opacity: 0.75; }
+}
+
+/* 終端 特效 */
+body.terminal .bgfx, [data-theme="terminal"] .bgfx {
+  background: radial-gradient(70% 50% at 50% 0%, rgba(77, 255, 136, 0.08), transparent 60%);
+}
+
+/* 夢核 特效 — 重調均勻深邃漸層（消除局部亮斑光暈，保持純粹暮光氛圍） */
+body.dream .bgfx, [data-theme="dream"] .bgfx {
+  background: linear-gradient(135deg, #873461 0%, #6c3374 35%, #533171 70%, #3c2258 100%);
+}
+
+
+
+
+/* 數字等寬對齊 */
+.tabular-nums, .hud-num, input[type=number] {
+  font-variant-numeric: tabular-nums;
+}
+input[type=number] {
+  cursor: text;
+}
+
+/* 觸覺反饋（除粗獷主題特有位移外，全站平穩無文字/邊框位移動作） */
+button, .btn-ghost, .inspector-link-card, .profile-chip {
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
